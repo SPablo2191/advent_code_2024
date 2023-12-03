@@ -7,12 +7,12 @@ symbol_list = [symbol for symbol in string.punctuation if symbol != "."] # get l
 
 def is_part_number(matrix, row, column) -> bool:
     global symbol_list
-    # print(f"checking if {matrix[row][column]} is a part number... position: {row}, {column}")
     neighbors = []
     for i in range(row-1, row+2):
         for j in range(column-1, column+2):
             if 0 <= i < len(matrix) and 0 <= j < len(matrix[0]) and (i != row or j != column):
                 neighbors.append(matrix[i][j])
+    # print(f"neighbors of {matrix[row][column]}: {neighbors}")
     return any(element in symbol_list for element in neighbors)
 
 
@@ -22,17 +22,20 @@ def get_sum_part_numbers():
     sum_parts = 0
     for i  in range(len(lines_matrix)):
         aux = ""
-        flag = False
+        cont_part_number = 0
         for j  in range(len(lines_matrix[i])):
             if lines_matrix[i][j].isnumeric():
-                flag = is_part_number(lines_matrix, i,j)
+                if is_part_number(lines_matrix, i,j):
+                    cont_part_number += 1
                 aux += lines_matrix[i][j]
             else:
-                if flag:
+                if cont_part_number > 0:
                     print("valid part number: ", aux)
                     sum_parts += int(aux)
-                    flag = False
-                    aux = ""
+                    cont_part_number = 0
+                elif (cont_part_number == 0) and (aux != ""):
+                    print("invalid part number: ", aux)
+                aux = ""
     print(f"The sum of all part numbers is {sum_parts}")
 
 
