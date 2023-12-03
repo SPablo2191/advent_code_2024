@@ -22,15 +22,16 @@ def get_sum_part_numbers():
     sum_parts = 0
     for i  in range(len(lines_matrix)):
         aux = ""
+        flag = False
         for j  in range(len(lines_matrix[i])):
             if lines_matrix[i][j].isnumeric():
+                flag = is_part_number(lines_matrix, i,j)
                 aux += lines_matrix[i][j]
             else:
-                if aux != "":
-                    print(f"checking if {aux} is a part number...")
-                    if is_part_number(lines_matrix, i,j):
-                        print(f"{aux} is a part number!")
-                        sum_parts += int(aux)
+                if flag:
+                    print("valid part number: ", aux)
+                    sum_parts += int(aux)
+                    flag = False
                     aux = ""
     print(f"The sum of all part numbers is {sum_parts}")
 
