@@ -45,7 +45,6 @@ def sum_points_cards():
             if number in having_numbers:
                 card_points = increase_points(card_points)
                 total_scratchcards[next_card] = increase_total_scratchcards(total_scratchcards[next_card],total_scratchcards[current_card])
-                print(f"Card {card_id}: has {total_scratchcards} and {total_scratchcards[next_card]}")
                 next_card += 1
         
         print(f"Card {card_id}: has {card_points} points.")
