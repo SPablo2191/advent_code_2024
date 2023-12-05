@@ -19,6 +19,24 @@ def get_neighbors(matrix, row, column):
                 neighbors.append(matrix[i][j])
     return neighbors
 
+def is_a_gear(matrix, row, column) -> bool:
+    neighbors = get_neighbors(matrix, row, column)
+    print(f"the neighbors are: {neighbors}")
+    parts_adjacent_numbers = [element for element in neighbors if element.isnumeric()]
+    print(parts_adjacent_numbers)
+    return len(parts_adjacent_numbers) >= 2
+    
+
+def get_sum_gear_ratios():
+    lines = read_document("input.txt")
+    lines_matrix = [list(line) for line in lines] # get matrix of symbols
+    print(lines_matrix)
+    for lines in lines_matrix:
+        print(lines)
+    
+         
+    
+
 
 def get_sum_part_numbers():
     lines = read_document("input.txt")
@@ -28,8 +46,6 @@ def get_sum_part_numbers():
         aux = ""
         cont_part_number = 0
         for j  in range(len(lines_matrix[i])):
-            if lines_matrix[i][j] == "*":
-                print("")
             if lines_matrix[i][j].isnumeric():
                 if is_part_number(lines_matrix, i,j):
                     cont_part_number += 1
@@ -48,6 +64,7 @@ def get_sum_part_numbers():
 
 def main():
     get_sum_part_numbers()
+    get_sum_gear_ratios()
 
 if __name__ == "__main__":
     main()
